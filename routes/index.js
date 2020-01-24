@@ -4,6 +4,7 @@ const db = require('./queries')
 
 // Get all branches
 router.get('/branches', function (req, res) {
+	console.log("in /branches");
 	db.getBranches().then(function (data) {
 		res.setHeader('Access-Control-Allow-Origin', '*');
 		res.send(data);
@@ -14,6 +15,7 @@ router.get('/branches', function (req, res) {
 
 // Get branch of a specific zipcode
 router.get('/branch/:zipcode', function (req, res) {
+	console.log("in /branch with zipcode");;
 	db.searchBranch(req.params.zipcode).then(function (data) {
 		res.setHeader('Access-Control-Allow-Origin', '*');
 		res.send(data);
