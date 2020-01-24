@@ -24,6 +24,7 @@ router.get('/branch/:zipcode', function (req, res) {
 
 // Edit branch
 router.put('/branch', function (req, res) {
+	console.log("in /branch MAO");
 	console.log(req.body);
 	db.editBranch(req.body).then(function (data) {
 		res.setHeader('Access-Control-Allow-Origin', '*');

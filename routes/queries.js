@@ -34,6 +34,9 @@ var con = mysql.createConnection({
     module.exports.searchBranch = searchBranch;
 
     var editBranch = function (branchDetails) {
+	    console.log("in editBranch");
+	    console.log(branchDetails);
+	    
       const query = 'UPDATE stage1pocDB.Branch SET zipcode='+branchDetails.zipcode+', address="'+branchDetails.address+'", workingdays="'+branchDetails.workingdays+'", workinghours="'+branchDetails.workinghours+'", description="'+branchDetails.description+'", lastmodifieddtm="'+branchDetails.lastmodifieddtm+'", State="'+branchDetails.State+'" WHERE branchname="'+branchDetails.branchname+'"';
       console.log(query);
   return new Promise(function (fulfill, reject) {
