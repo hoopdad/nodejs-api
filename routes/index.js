@@ -2,6 +2,12 @@ var express = require('express');
 var router = express.Router();
 const db = require('./queries')
 
+router.all('/*', function (req, res, next) {
+	res.header("Access-Control-Allow-Origin","*");
+	res.header("Access-Control-ALlow-Headers","X-Requested-With");
+	next();
+});
+
 // Get all branches
 router.get('/branches', function (req, res) {
 	console.warn("in /branches");
