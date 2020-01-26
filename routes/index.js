@@ -3,8 +3,10 @@ var router = express.Router();
 const db = require('./queries')
 
 router.all('/*', function (req, res, next) {
+	console.warn ("in router.all()");
 	res.header("Access-Control-Allow-Origin","*");
 	res.header("Access-Control-ALlow-Headers","X-Requested-With");
+	res.header('Access-Control-Allow-Method', 'PUT, POST, GET, DELETE, OPTIONS');
 	next();
 });
 
