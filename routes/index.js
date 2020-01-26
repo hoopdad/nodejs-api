@@ -1,7 +1,7 @@
 var express = require('express');
 var cors = require('cors');
 app = express();
-app.use(cors());
+app.use(cors({ origin: true, credentials: true }));
 var router = express.Router();
 const db = require('./queries')
 
