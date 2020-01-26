@@ -30,6 +30,7 @@ router.put('/branch', function (req, res) {
 	console.warn(req.body);
 	db.editBranch(req.body).then(function (data) {
 		res.setHeader('Access-Control-Allow-Origin', '*');
+		res.setHeader('Access-Control-Allow-Method', '*');
 		res.send(data);
 	}).catch(function (ew) {
 		res.send(ew);
