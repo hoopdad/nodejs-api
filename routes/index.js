@@ -2,12 +2,9 @@ var express = require('express');
 var cors=require ("cors");
 var router = express.Router();
 const db = require('./queries')
+var app = express();
 
-router.all('/*', function (req, res, next) {
-	console.warn ("in router.all()");
-	cors();
-	next();
-});
+app.use(cors());
 
 // Get all branches
 router.get('/branches', function (req, res) {
