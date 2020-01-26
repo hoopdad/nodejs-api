@@ -43,6 +43,10 @@ router.put('/branch', function (req, res) {
 });
 router.options('/branch', function(req, res) {
 	console.warn ("in OPTIOns");
+	res.setHeader("Access-Control-Allow-Origin", "*");
+	res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+	res.setHeader("Access-Control-Allow-Methods", "GET, PUT, POST, PATCH, DELETE, OPTIONS");
+	res.setHeader("Access-Control-Request-Method", "*");
 });
 
 module.exports = router;
