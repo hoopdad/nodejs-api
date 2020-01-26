@@ -4,7 +4,7 @@ const db = require('./queries')
 
 // Get all branches
 router.get('/branches', function (req, res) {
-	console.log("in /branches");
+	console.warn("in /branches");
 	db.getBranches().then(function (data) {
 		res.setHeader('Access-Control-Allow-Origin', '*');
 		res.send(data);
@@ -15,7 +15,7 @@ router.get('/branches', function (req, res) {
 
 // Get branch of a specific zipcode
 router.get('/branch/:zipcode', function (req, res) {
-	console.log("in /branch with zipcode");;
+	console.warn("in /branch with zipcode");;
 	db.searchBranch(req.params.zipcode).then(function (data) {
 		res.setHeader('Access-Control-Allow-Origin', '*');
 		res.send(data);
@@ -26,8 +26,8 @@ router.get('/branch/:zipcode', function (req, res) {
 
 // Edit branch
 router.put('/branch', function (req, res) {
-	console.log("in /branch MAO");
-	console.log(req.body);
+	console.warn("in /branch MAO");
+	console.warn(req.body);
 	db.editBranch(req.body).then(function (data) {
 		res.setHeader('Access-Control-Allow-Origin', '*');
 		res.send(data);

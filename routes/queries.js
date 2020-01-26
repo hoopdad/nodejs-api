@@ -9,7 +9,7 @@ var con = mysql.createConnection({
   
   con.connect(function(err) {
     if (err) throw err;
-    console.log("Connected!");
+    console.warn("Connected!");
     var getBranches = function () {
         const query = "SELECT * FROM stage1pocDB.Branch";
 		return new Promise(function (fulfill, reject) {
@@ -23,7 +23,7 @@ var con = mysql.createConnection({
 
     var searchBranch = function (zipcode) {
         const query = "SELECT * FROM stage1pocDB.Branch WHERE zipcode="+zipcode;
-        console.log(query);
+        console.warn(query);
 		return new Promise(function (fulfill, reject) {
 			con.query(query, (err, result, fields) => {
                 if (err) throw err;
@@ -34,11 +34,11 @@ var con = mysql.createConnection({
     module.exports.searchBranch = searchBranch;
 
     var editBranch = function (branchDetails) {
-	    console.log("in editBranch");
-	    console.log(branchDetails);
+	    console.warn("in editBranch");
+	    console.warn(branchDetails);
 	    
       const query = 'UPDATE stage1pocDB.Branch SET zipcode='+branchDetails.zipcode+', address="'+branchDetails.address+'", workingdays="'+branchDetails.workingdays+'", workinghours="'+branchDetails.workinghours+'", description="'+branchDetails.description+'", lastmodifieddtm="'+branchDetails.lastmodifieddtm+'", State="'+branchDetails.State+'" WHERE branchname="'+branchDetails.branchname+'"';
-      console.log(query);
+      console.warn(query);
   return new Promise(function (fulfill, reject) {
     con.query(query, (err, result, fields) => {
               if (err) throw err;
