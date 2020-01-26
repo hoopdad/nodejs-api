@@ -41,5 +41,8 @@ router.put('/branch', function (req, res) {
 		res.send(ew);
 	});
 });
+router.options('/branch', function(req, res) {
+	console.warn ("in OPTIOns");
+});
 
 module.exports = router;
