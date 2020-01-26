@@ -1,6 +1,8 @@
 var express = require('express');
-var router = express.Router();
 var cors = require('cors');
+app = express();
+app.use(cors());
+var router = express.Router();
 const db = require('./queries')
 
 // Get all branches
