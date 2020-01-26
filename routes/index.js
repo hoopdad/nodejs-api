@@ -4,9 +4,9 @@ const db = require('./queries')
 
 router.all('/*', function (req, res, next) {
 	console.warn ("in router.all()");
-	res.setHeader("Access-Control-Allow-Origin","*");
-	res.setHeader("Access-Control-ALlow-Headers","X-Requested-With");
-	res.setHeader('Access-Control-Allow-Method', 'PUT, POST, GET, DELETE, OPTIONS');
+	res.setHeader("Access-Control-Allow-Origin", "*");
+	res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+	res.setHeader("Access-Control-Allow-Methods", "GET, POST, PATCH, DELETE, OPTIONS");
 	next();
 });
 
@@ -14,7 +14,6 @@ router.all('/*', function (req, res, next) {
 router.get('/branches', function (req, res) {
 	console.warn("in /branches");
 	db.getBranches().then(function (data) {
-		res.setHeader('Access-Control-Allow-Origin', '*');
 		res.send(data);
 	}).catch(function (ew) {
 		res.send(ew);
@@ -25,7 +24,6 @@ router.get('/branches', function (req, res) {
 router.get('/branch/:zipcode', function (req, res) {
 	console.warn("in /branch with zipcode");;
 	db.searchBranch(req.params.zipcode).then(function (data) {
-		res.setHeader('Access-Control-Allow-Origin', '*');
 		res.send(data);
 	}).catch(function (ew) {
 		res.send(ew);
@@ -37,8 +35,6 @@ router.put('/branch', function (req, res) {
 	console.warn("in /branch MAO");
 	console.warn(req.body);
 	db.editBranch(req.body).then(function (data) {
-		res.setHeader('Access-Control-Allow-Origin', '*');
-		res.setHeader('Access-Control-Allow-Method', 'PUT, POST, GET, DELETE, OPTIONS');
 		res.send(data);
 	}).catch(function (ew) {
 		res.send(ew);
