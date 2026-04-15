@@ -68,6 +68,10 @@ router.put('/branch', function (req, res) {
 		}
 	}
 
+	if (typeof req.body.zipcode !== 'string' && typeof req.body.zipcode !== 'number') {
+		return res.status(400).send('Invalid zipcode');
+	}
+
 	if (!/^\d{5}$/.test(String(req.body.zipcode))) {
 		return res.status(400).send('Invalid zipcode');
 	}
