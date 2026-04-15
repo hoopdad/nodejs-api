@@ -8,8 +8,11 @@ var con = mysql.createConnection({
 	database: process.env.DB_NAME || 'stage1pocDB'
 });
 
+var connectionError = null;
+
 con.connect(function (err) {
 	if (err) {
+		connectionError = err;
 		console.error('Database connection failed:', err.message);
 		return;
 	}
@@ -18,6 +21,10 @@ con.connect(function (err) {
 
 function runQuery(query, params) {
 	return new Promise(function (fulfill, reject) {
+		if (connectionError) {
+			return reject(connectionError);
+		}
+
 		con.query(query, params, function (err, result) {
 			if (err) {
 				return reject(err);
@@ -28,12 +35,15 @@ function runQuery(query, params) {
 }
 
 function getBranches() {
-	return runQuery('SELECT * FROM Branch');
+	return runQuery('SELECT branchname, zipcode, address, workingdays, workinghours, description, lastmodifieddtm, State FROM Branch');
 }
 module.exports.getBranches = getBranches;
 
 function searchBranch(zipcode) {
-	return runQuery('SELECT * FROM Branch WHERE zipcode = ?', [zipcode]);
+	return runQuery(
+		'SELECT branchname, zipcode, address, workingdays, workinghours, description, lastmodifieddtm, State FROM Branch WHERE zipcode = ?',
+		[zipcode]
+	);
 }
 module.exports.searchBranch = searchBranch;
 

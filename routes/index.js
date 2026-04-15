@@ -1,6 +1,16 @@
 var express = require('express');
 var router = express.Router();
 const db = require('./queries');
+var allowedEditFields = [
+	'zipcode',
+	'address',
+	'workingdays',
+	'workinghours',
+	'description',
+	'lastmodifieddtm',
+	'State',
+	'branchname'
+];
 
 router.use(function (req, res, next) {
 	res.setHeader('Access-Control-Allow-Origin', '*');
@@ -23,8 +33,8 @@ router.get('/branches', function (req, res) {
 
 // Get branch of a specific zipcode
 router.get('/branch/:zipcode', function (req, res) {
-	var zipcode = Number(req.params.zipcode);
-	if (!Number.isInteger(zipcode)) {
+	var zipcode = req.params.zipcode;
+	if (!/^\d{5}$/.test(zipcode)) {
 		return res.status(400).send('Invalid zipcode');
 	}
 	db.searchBranch(zipcode).then(function (data) {
@@ -37,6 +47,29 @@ router.get('/branch/:zipcode', function (req, res) {
 
 // Edit branch
 router.put('/branch', function (req, res) {
+	if (!req.body || typeof req.body !== 'object') {
+		return res.status(400).send('Invalid request body');
+	}
+
+	var fields = Object.keys(req.body);
+	var hasUnexpectedFields = fields.some(function (field) {
+		return !allowedEditFields.includes(field);
+	});
+
+	if (hasUnexpectedFields) {
+		return res.status(400).send('Unexpected fields in request body');
+	}
+
+	for (var i = 0; i < allowedEditFields.length; i += 1) {
+		if (req.body[allowedEditFields[i]] === undefined || req.body[allowedEditFields[i]] === null) {
+			return res.status(400).send('Missing required field: ' + allowedEditFields[i]);
+		}
+	}
+
+	if (!/^\d{5}$/.test(String(req.body.zipcode))) {
+		return res.status(400).send('Invalid zipcode');
+	}
+
 	db.editBranch(req.body).then(function (data) {
 		res.send(data);
 	}).catch(function (ew) {
