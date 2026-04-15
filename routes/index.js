@@ -27,7 +27,8 @@ router.get('/branches', function (req, res) {
 	db.getBranches().then(function (data) {
 		res.send(data);
 	}).catch(function (ew) {
-		res.status(500).send(ew.message || 'Failed to fetch branches');
+		console.error(ew);
+		res.status(500).send('Failed to fetch branches');
 	});
 });
 
@@ -40,7 +41,8 @@ router.get('/branch/:zipcode', function (req, res) {
 	db.searchBranch(zipcode).then(function (data) {
 		res.send(data);
 	}).catch(function (ew) {
-		res.status(500).send(ew.message || 'Failed to fetch branch');
+		console.error(ew);
+		res.status(500).send('Failed to fetch branch');
 	});
 });
 
@@ -73,7 +75,8 @@ router.put('/branch', function (req, res) {
 	db.editBranch(req.body).then(function (data) {
 		res.send(data);
 	}).catch(function (ew) {
-		res.status(500).send(ew.message || 'Failed to update branch');
+		console.error(ew);
+		res.status(500).send('Failed to update branch');
 	});
 });
 
